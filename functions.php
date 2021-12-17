@@ -1,22 +1,27 @@
 <?php
 
-function sayHello () {
+function sayHello()
+{
     echo 'Hello!<br>';
 }
 
-function plusOne($a) {
+function plusOne($a)
+{
     echo ++$a . '<br>';
 }
 
-function multiply (int $a, int $b) {
+function multiply(int $a, int $b)
+{
     echo $a * $b . '<br>';
 }
 
-function sumNumbers ($a, $b, $c = 0) {
+function sumNumbers($a, $b, $c = 0)
+{
     echo $a + $b + $c . '<br>';
 }
 
-function returnPlusOne ($a) {
+function returnPlusOne($a)
+{
     return [
         'oldValue' => $a,
         'newValue' => ++$a
@@ -52,7 +57,8 @@ sumNumbers(1, 2);
 
 $numbers = [1, 5, 3, 7, 2, 4];
 
-function maxNumber (array $numbers) {
+function maxNumber(array $numbers)
+{
     $maxNumber = $numbers[0];
 
     foreach ($numbers as $value) {
@@ -64,7 +70,8 @@ function maxNumber (array $numbers) {
     return $maxNumber;
 }
 
-function sumArray (array $numbers) {
+function sumArray(array $numbers)
+{
     $res = 0;
 
     foreach ($numbers as $value) {
@@ -72,11 +79,29 @@ function sumArray (array $numbers) {
     }
 
     return $res;
+}
 
+function adjacentElementsProduct($array)
+{
+    $arraySum = [];
+    $count = count($array);
+    for ($i = 0; $i < $count - 1; ++$i) {
+        $arraySum[] = $array[$i] + $array[$i + 1];
+    }
+    return max($arraySum);
+    echo '<pre>';
+}
+
+function binaryArrayToNumber($arr)
+{
+    $res = 0;
+    $count = count($arr) - 1;
+    foreach ($arr as $n) {
+        $res += $n * (2 ** $count--);
+    }
+    return $res;
 }
 
 echo maxNumber($numbers) . '<br>';
 
 echo max($numbers) . '<br>';
-
-echo sumArray($numbers) . '<br>';
