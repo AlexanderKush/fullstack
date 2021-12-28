@@ -45,10 +45,15 @@
                 <tr>
                     <td>{$user['id']}</td>
                     <td>{$user['login']}</td>
-                    <td>{$user['name']}</td>
+                    <td>
+                        <a href=\"/pages/user.php?id=" . $user['id'] . "\">
+                            {$user['name']}
+                        </a>
+                    </td>
                     <td>$city</td>
                     <td class=\"text-center\">
-                        <form method=\"post\" action=\"del_user.php\">
+                        <form method=\"post\" action=\"/actions/del_user.php\">
+                            <input type=\"hidden\" name=\"id\" value=" . $user['id'] . ">
                             <button class=\"btn btn-danger\" style=\"border-radius: 50em; width: 30px; padding: 0 0 4px;height: 30px; line-height: 1;\">x</button>
                         </form>
                     </td>
