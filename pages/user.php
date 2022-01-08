@@ -1,26 +1,7 @@
 <?php
 
-    session_start();
-
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-</head>
-<body>
-    <div class='container mt-5'>
-
-    <?php
-
-    $user = 'root';
-    $password = '';
-    $pdo = new Pdo('mysql:dbname=fullstack2;host=127.0.0.1', $user, $password);
+$title = 'Личный кабинет';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
 
     $user_id = $_GET['id'];
 
@@ -46,7 +27,7 @@
         } else {
             if ($_SESSION['good']) {
                 echo '
-                    <div class="alert alert-success">Данные успешно сохранены</div>
+                    <div id="alertSuccess" class="alert alert-success">Данные успешно сохранены</div>
                 ';
                 unset($_SESSION['good']);
             }
@@ -68,7 +49,7 @@
                     }
                     foreach ($cities as $city) {
                         $selected = $city['id'] == $arr_user['city_id'] ? 'selected' : '';
-                        echo '<option ' . $selected . ' value="">' . $city['name'] . '</option>';
+                        echo '<option ' . $selected . ' value="' . $city['id'] . '">' . $city['name'] . '</option>';
                     }
                 ?>
             </select>
@@ -78,14 +59,19 @@
         <?
 
     } else {
-        echo 'Пользователь не найден';
+        echo '<div class="alert alert-warning">Пользователь не найден</div>';
     }
 
     ?>
 
-    </div>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#alertSuccess').fadeOut()
+            }, 3000)
+        })
+    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-</body>
-</html>
+   <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php';
+   ?>

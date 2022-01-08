@@ -1,21 +1,19 @@
 <?php
 
-session_start();
-
-$user = 'root';
-$password = '';
-$pdo = new Pdo('mysql:dbname=fullstack2;host=127.0.0.1', $user, $password);
+require $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
 $userId =$_POST['id'];
 $name =$_POST['name'];
 $login =$_POST['login'];
+$cityId = $_POST['city_id'];
 
-$query = "UPDATE users SET name = :name, login = :login WHERE id = :id";
+$query = "UPDATE users SET name = :name, city_id = :city_id, login = :login WHERE id = :id";
 $res = $pdo->prepare($query);
 $status = $res->execute([
     ':id' => $userId,
     ':name' => $name,
     ':login' => $login,
+    ':city_id' => $cityId,
 ]);
 
 if (!$status) {
