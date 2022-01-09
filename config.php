@@ -1,13 +1,13 @@
 <?php
 
-    define('PRODUCTS_IMAGE_PATH', '/images/products/');
+define('PRODUCTS_IMAGE_PATH', '/images/products/');
 
-    session_start();
+session_start();
 
-    $user = 'root';
-    $password = '';
-    $pdo = new Pdo('mysql:dbname=fullstack2;host=127.0.0.1', $user, $password);
+$user = 'root';
+$password = '';
+$pdo = new Pdo('mysql:dbname=fullstack2;host=127.0.0.1', $user, $password);
 
-    $page = $_SERVER['PHP_SELF'];
+$page = $_SERVER['PHP_SELF'];
 
 ?>

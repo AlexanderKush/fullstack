@@ -1,5 +1,7 @@
 <?php
+
 $title = 'Список пользователей';
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
 
 $query = "SELECT * FROM users";

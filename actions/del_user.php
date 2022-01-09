@@ -10,5 +10,6 @@ $res->execute([
     ':id' => $userId
 ]);
 
+header('Location: /');
 
-header('Location: ../index.php');
+?>

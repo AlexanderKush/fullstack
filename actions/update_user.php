@@ -24,3 +24,5 @@ if (!$status) {
 }
 
 header('Location: ../pages/user.php?id=' . $userId);
+
+?>

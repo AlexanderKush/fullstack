@@ -1,21 +1,22 @@
 <?php
 
-    $title = 'Авторизация';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
+$title = 'Авторизация';
 
-    if ($_SESSION['user']) {
-        header('Location: ../index.php');
-    }
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
 
-    if (isset($_SESSION['loginError'])) {
-        echo 
-        "
-        <div class='alert alert-warning text-center' role='alert'>
-            Неверные данные
-        </div>
-        ";
-        unset($_SESSION['loginError']);
-    }
+if ($_SESSION['user']) {
+    header('Location: ../index.php');
+}
+
+if (isset($_SESSION['loginError'])) {
+    echo 
+    "
+    <div class='alert alert-warning text-center' role='alert'>
+        Неверные данные
+    </div>
+    ";
+    unset($_SESSION['loginError']);
+}
 
 ?>
 
@@ -26,5 +27,7 @@
 </form>
 
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php';
+
 ?>
