@@ -10,6 +10,6 @@ $res->execute([
     ':id' => $userId
 ]);
 
-header('Location: /');
+header('Location: /pages/admin/users.php');
 
 ?>

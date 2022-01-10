@@ -9,7 +9,6 @@ $file = $_FILES['file'];
 if (!$file['name']) {
 
     $errors[] = 'Вы не загрузили изображение';
-
 } else {
 
     $types = $file['type'];
@@ -18,7 +17,6 @@ if (!$file['name']) {
     if ($type[0] != 'image') {
         $errors[] = 'Файл должен быть изображением';
     }
-    
 }
 
 $name = $_POST['name'];
@@ -60,7 +58,7 @@ $temp = explode('.', $file['name']);
 $ext = $temp[count($temp) - 1];
 $fileName = time() . rand(10000, 99999) . '.' . $ext;
 
-move_uploaded_file($file['tmp_name'], "$document_root/images/products/$fileName");
+move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/images/products/' . $fileName);
 $query = "INSERT INTO products (name, description, price, category_id, picture)
           VALUES(:name, :description, :price, :category_id, :picture)";
 

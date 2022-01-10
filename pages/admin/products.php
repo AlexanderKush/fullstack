@@ -1,6 +1,8 @@
 <?php
+
 $title = 'Список продуктов';
-require_once '../../templates/header.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'] . './templates/header.php';
 
 $query = "SELECT * FROM products";
 $res = $pdo->query($query);
@@ -12,31 +14,32 @@ $categories = $res->fetchAll();
 
 if (isset($_SESSION['createProductErrors'])) {
     $errors = implode('<br>', $_SESSION['createProductErrors']);
-    echo 
-    "
-    <div class='alert alert-warning text-center' role='alert'>
-        $errors
+?>
+    <div class="alert alert-warning text-center" role="alert">
+        <?= $errors ?>
     </div>
-    ";
+<?php
     unset($_SESSION['createProductErrors']);
 }
 ?>
 
 <form method="POST" enctype="multipart/form-data" action="/actions/admin/createProduct.php">
-    <input value="<?= $_SESSION['lastProductCreate']['name'] ?? '' ?>" class="form-control mb-2" name='name' placeholder="Наименование продукта">
-    <textarea class="form-control mb-2" name='description' placeholder="Описание"><?= $_SESSION['lastProductCreate']['description'] ?? '' ?></textarea>
-    <input value="<?= $_SESSION['lastProductCreate']['price'] ?? '' ?>" class="form-control mb-2" name='price' placeholder="Цена">
-    <input type="file" name='file' class="form-control mb-2">
-    <select class="form-control mb-2" name='category_id'>
+    <input value="<?= $_SESSION['lastProductCreate']['name'] ?? '' ?>" class="form-control mb-2" name="name" placeholder="Наименование продукта">
+    <textarea class="form-control mb-2" name="description" placeholder="Описание"><?= $_SESSION['lastProductCreate']['description'] ?? '' ?></textarea>
+    <input value="<?= $_SESSION['lastProductCreate']['price'] ?? '' ?>" class="form-control mb-2" name="price" placeholder="Цена">
+    <input type="file" name="file" class="form-control mb-2">
+    <select class="form-control mb-2" name="category_id">
         <?php
-            $lastCategoryId = $_SESSION['lastProductCreate']['category_id'];
-            if (!$lastCategoryId) {
-                echo '<option disabled selected>-- Выберите категорию --</option>';
-            }
-            foreach($categories as $category) {
-                $selected = $lastCategoryId == $category['id'] ? 'selected' : '';
-                echo "<option $selected value='{$category['id']}'>{$category['name']}</option>";
-            }
+
+        $lastCategoryId = $_SESSION['lastProductCreate']['category_id'];
+        if (!$lastCategoryId) {
+            echo '<option disabled selected>-- Выберите категорию --</option>';
+        }
+        foreach ($categories as $category) {
+            $selected = $lastCategoryId == $category['id'] ? 'selected' : '';
+            echo '<option $selected value="' . $category['id'] . '">' . $category['name'] . '</option>';
+        }
+
         ?>
     </select>
     <button class="btn btn-primary w-100" type="submit">Сохранить</button>
@@ -56,30 +59,28 @@ if (isset($_SESSION['createProductErrors'])) {
     <tbody>
         <?php
         if (!$products) {
-            echo
-            "
+        ?>
             <tr>
-                <td class='text-center' colspan='6'>
+                <td class="text-center" colspan="6">
                     <em>Продукты отсутствуют</em>
                 </td>
             </tr>
-            ";
+        <?php
         }
-        $path = PRODUCTS_IMAGE_PATH;
+
         foreach ($products as $product) {
-            echo
-            "
+        ?>
             <tr>
-                <td>{$product['id']}</td>
-                <td>{$product['name']}</td>
-                <td>{$product['description']}</td>
-                <td>{$product['price']}</td>
-                <td>{$product['category_id']}</td>
-                <td class='text-center'>
-                    <img height='100' src='{const(PRODUCTS_IMAGE_PATH)}{$product['picture']}'>
+                <td><?= $product['id'] ?></td>
+                <td><?= $product['name'] ?></td>
+                <td><?= $product['description'] ?></td>
+                <td><?= $product['price'] ?></td>
+                <td><?= $product['category_id'] ?></td>
+                <td class="text-center">
+                    <img class="mw-100 mh-100" src="<?= PRODUCTS_IMAGE_PATH . $product['picture'] ?>">
                 </td>
             </tr>
-            ";
+        <?php
         }
         ?>
     </tbody>
@@ -87,4 +88,4 @@ if (isset($_SESSION['createProductErrors'])) {
 
 <?php
 
-require_once '../../templates/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php';
